@@ -1,14 +1,22 @@
 Config = {}
 
+---------------------------------
 -- safe deposit box
+---------------------------------
 Config.StorageMaxWeight = 500000
 Config.StorageMaxSlots = 5
 
+---------------------------------
 -- settings
+---------------------------------
 Config.Keybind = 'J'
 Config.OpenTime = 9 -- hrs : 24hour clock
 Config.CloseTime = 17 -- hrs : 24hour clock
+Config.UseTarget = false
 
+---------------------------------
+-- bank locations
+---------------------------------
 Config.BankLocations = {
     {
         name = 'Valentine Bank',
@@ -52,6 +60,9 @@ Config.BankLocations = {
     },
 }
 
+---------------------------------
+-- bank doors
+---------------------------------
 Config.BankDoors = {
 
     -- valentine ( open = 0 / locked = 1)

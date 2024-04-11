@@ -1,8 +1,8 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
 
------------------------------------------------------------------------
+---------------------------------
 -- version checker
------------------------------------------------------------------------
+---------------------------------
 local function versionCheckPrint(_type, log)
     local color = _type == 'success' and '^2' or '^1'
 
@@ -29,7 +29,9 @@ local function CheckVersion()
     end)
 end
 
+---------------------------------
 -- callback for bank balance
+---------------------------------
 RSGCore.Functions.CreateCallback('rsg-banking:getBankingInformation', function(source, cb)
     local Player = RSGCore.Functions.GetPlayer(source)
     if not Player then return cb(nil) end
@@ -37,7 +39,9 @@ RSGCore.Functions.CreateCallback('rsg-banking:getBankingInformation', function(s
     cb(banking)
 end)
 
+---------------------------------
 -- deposit & withdraw
+---------------------------------
 RegisterNetEvent("rsg-banking:server:transact", function(type, amount)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(source)
@@ -69,7 +73,9 @@ RegisterNetEvent("rsg-banking:server:transact", function(type, amount)
     end
 end)
 
+---------------------------------
 -- moneyclip made usable
+---------------------------------
 RSGCore.Functions.CreateUseableItem('moneyclip', function(source, item)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
@@ -88,7 +94,9 @@ RSGCore.Functions.CreateUseableItem('moneyclip', function(source, item)
     end
 end)
 
+---------------------------------
 -- create moneyclip command
+---------------------------------
 RSGCore.Commands.Add('moneyclip', Lang:t('server.lang_6'), {{ name = 'amount', help = Lang:t('server.lang_7') }}, true, function(source, args)
     local src = source
     local args1 = tonumber(args[1])
@@ -117,7 +125,9 @@ RSGCore.Commands.Add('moneyclip', Lang:t('server.lang_6'), {{ name = 'amount', h
     end
 end, 'user')
 
+---------------------------------
 -- blood moneyclip made usable
+---------------------------------
 RSGCore.Functions.CreateUseableItem('bloodmoneyclip', function(source, item)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
@@ -136,7 +146,9 @@ RSGCore.Functions.CreateUseableItem('bloodmoneyclip', function(source, item)
     end
 end)
 
+---------------------------------
 -- create blood moneyclip command
+---------------------------------
 RSGCore.Commands.Add('bloodmoneyclip', Lang:t('server.lang_14'), {{ name = 'amount', help = Lang:t('server.lang_15') }}, true, function(source, args)
     local src = source
     local args1 = tonumber(args[1])
@@ -165,7 +177,7 @@ RSGCore.Commands.Add('bloodmoneyclip', Lang:t('server.lang_14'), {{ name = 'amou
     end
 end, 'user')
 
---------------------------------------------------------------------------------------------------
+---------------------------------
 -- start version check
---------------------------------------------------------------------------------------------------
+---------------------------------
 CheckVersion()
