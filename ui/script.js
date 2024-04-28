@@ -36,6 +36,11 @@ $(".safedeposit").click(function() {
     $.post(`https://${GetParentResourceName()}/SafeDeposit`);
 });
 
+$(".moneyclip").click(function() {
+    $("#bankmenu").fadeOut(200);
+    $.post(`https://${GetParentResourceName()}/MoneyClip`);
+});
+
 $(".withdraw").click(function() {
     TransactionType = 1;
     $("#bankmenu").fadeOut(200, function() {
@@ -53,6 +58,16 @@ $(".deposit").click(function() {
         $("#transactionmenu").fadeIn(200);
         $("#transhead").html("Deposit");
         $(".transact").html("Deposit");
+    });
+});
+
+$(".moneyclip").click(function() {
+    TransactionType = 3;
+    $("#bankmenu").fadeOut(200, function() {
+        $("#amount").val("");
+        $("#transactionmenu").fadeIn(200);
+        $("#transhead").html("Create Moneyclip");
+        $(".transact").html("Create");
     });
 });
 

@@ -52,6 +52,8 @@ RegisterNetEvent("rsg-banking:server:transact", function(type, amount)
         lib.notify(src, {title = Lang:t('server.lang_1'), type = 'error'})
         return
     end
+
+	-- bank-withdraw
     if type == 1 then
         if currentBank >= amount then
             Player.Functions.RemoveMoney('bank', tonumber(amount), 'bank-withdraw')
@@ -61,16 +63,34 @@ RegisterNetEvent("rsg-banking:server:transact", function(type, amount)
         else
             lib.notify(src, {title = Lang:t('server.lang_2'), type = 'error'})
         end
-    elseif type == 2 then
+	end
+
+	-- bank-deposit
+	if type == 2 then
         if currentCash >= amount then
-            Player.Functions.RemoveMoney('cash', tonumber(amount), 'bank-withdraw')
-            Player.Functions.AddMoney('bank', tonumber(amount), 'bank-withdraw')
+            Player.Functions.RemoveMoney('cash', tonumber(amount), 'bank-deposit')
+            Player.Functions.AddMoney('bank', tonumber(amount), 'bank-deposit')
             local newBankBalance = Player.Functions.GetMoney('bank')
             TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance)
         else
             lib.notify(src, {title = Lang:t('server.lang_2'), type = 'error'})
         end
     end
+
+	-- create moneyclip
+	if type == 3 then
+        if currentCash >= amount then
+            local info = { money = amount }
+			Player.Functions.RemoveMoney('bank', tonumber(amount), 'bank-moneyclip')
+            Player.Functions.AddItem('moneyclip', 1, false, info)
+			local newBankBalance = Player.Functions.GetMoney('bank')
+			TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance)
+            lib.notify({ title = Lang:t('server.lang_9'), description = Lang:t('server.lang_10')..amount..Lang:t('server.lang_11'), type = 'success' })
+        else
+            lib.notify(src, {title = Lang:t('server.lang_2'), type = 'error'})
+        end
+    end
+
 end)
 
 ---------------------------------
