@@ -20,7 +20,7 @@ Config.UseTarget = false
 Config.BankLocations = {
     {
         name = 'Valentine Bank',
-        id = 'valbank',
+        bankid = 'valbank',
         coords = vector3(-308.4189, 775.8842, 118.7017),
         showblip = true,
         blipsprite = 'blip_proc_bank', 
@@ -28,7 +28,7 @@ Config.BankLocations = {
     },
     {
         name = 'Rhodes Bank',
-        id = 'rhobank',
+        bankid = 'rhobank',
         coords = vector3(1292.307, -1301.539, 77.04012),
         showblip = true,
         blipsprite = 'blip_proc_bank', 
@@ -36,7 +36,7 @@ Config.BankLocations = {
     },
     {
         name = 'Saint Denis Bank',
-        id = 'stdenisbank',
+        bankid = 'bank',
         coords = vector3(2644.579, -1292.313, 52.24956),
         showblip = true,
         blipsprite = 'blip_proc_bank', 
@@ -44,7 +44,7 @@ Config.BankLocations = {
     },
     {
         name = 'Blackwater Bank',
-        id = 'blkbank',
+        bankid = 'blkbank',
         coords = vector3(-813.1633, -1277.486, 43.63771),
         showblip = true,
         blipsprite = 'blip_proc_bank', 
@@ -52,7 +52,7 @@ Config.BankLocations = {
     },
     {
         name = 'Armadillo Bank',
-        id = 'ardbank',
+        bankid = 'armbank',
         coords = vector3(-3666.25, -2626.57, -13.59),
         showblip = true,
         blipsprite = 'blip_proc_bank', 

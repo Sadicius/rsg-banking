@@ -15,17 +15,20 @@ CreateThread(function()
                 options = {
                     {
                         type = "client",
-                        event = "rsg-banking:client:OpenBanking",
                         icon = "fas fa-bank",
-                        label = "Open bank"
+                        label = "Open bank",
+                        action = function()
+                            TriggerEvent('rsg-banking:client:OpenBanking', v.bankid)
+                        end
                     },
                 },
                 distance = 1.5
             })
         else
-            exports['rsg-core']:createPrompt(v.id, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], Lang:t('client.lang_1')..v.name, {
+            exports['rsg-core']:createPrompt(v.bankid, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], Lang:t('client.lang_1')..v.name, {
                 type = 'client',
                 event = 'rsg-banking:client:OpenBanking',
+                args = {v.bankid},
             })
         end
         if v.showblip == true then    
@@ -51,7 +54,7 @@ end)
 ---------------------------------
 -- open bank with opening hours
 ---------------------------------
-local OpenBank = function()
+local OpenBank = function(bankid)
     local hour = GetClockHours()
     if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
         lib.notify({
@@ -66,13 +69,13 @@ local OpenBank = function()
     end
     RSGCore.Functions.TriggerCallback('rsg-banking:getBankingInformation', function(banking)
         if banking ~= nil then
-            SendNUIMessage({action = "OPEN_BANK", balance = banking})
+            SendNUIMessage({action = "OPEN_BANK", balance = banking, id = bankid})
             SetNuiFocus(true, true)
             BankOpen = true
             SetTimecycleModifier('RespawnLight')
             for i=0, 10 do SetTimecycleModifierStrength(0.1 + (i / 10)); Wait(10) end
         end
-    end)
+    end, bankid)
 end
 
 ---------------------------------
@@ -132,20 +135,20 @@ RegisterNUICallback('SafeDeposit', function()
     TriggerEvent('rsg-banking:client:safedeposit')
 end)
 
-AddEventHandler("rsg-banking:client:OpenBanking", function()
-    OpenBank()
+AddEventHandler('rsg-banking:client:OpenBanking', function(bankid)
+    OpenBank(bankid)
 end)
 
 RegisterNUICallback('Transact', function(data)
-    TriggerServerEvent('rsg-banking:server:transact', data.type, data.amount)
+    TriggerServerEvent('rsg-banking:server:transact', data.type, data.amount, data.id)
 end)
 
 ---------------------------------
 -- update bank balance
 ---------------------------------
-RegisterNetEvent('rsg-banking:client:UpdateBanking', function(newbalance)
+RegisterNetEvent('rsg-banking:client:UpdateBanking', function(newbalance, bankid)
     if not BankOpen then return end
-    SendNUIMessage({action = "UPDATE_BALANCE", balance = newbalance})
+    SendNUIMessage({action = "UPDATE_BALANCE", balance = newbalance, id = bankid})
 end)
 
 ---------------------------------

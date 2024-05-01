@@ -1,8 +1,10 @@
 var ShowingToast = false;
 var ShopData = null;
 var TransactionType = 1;
+var id = 'bank';
 
 window.addEventListener("message", (event) => {
+    id = event.data.id;
     const action = event.data.action;
     switch (action) {
         case "OPEN_BANK":
@@ -78,7 +80,8 @@ $(".transact").click(function() {
     } else {
         $.post(`https://${GetParentResourceName()}/Transact`, JSON.stringify({
             type: TransactionType,
-            amount: amount
+            amount: amount,
+            id: id
         }));
         $("#transactionmenu").fadeOut(200, function() {
             $("#bankmenu").fadeIn(200);
