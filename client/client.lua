@@ -8,8 +8,8 @@ local SpawnedBankBilps = {}
 CreateThread(function()
     for _,v in pairs(Config.BankLocations) do
         if Config.UseTarget then
-            exports['rsg-target']:AddCircleZone(v.name, v.coords, 1, {
-                name = v.name,
+            exports['rsg-target']:AddCircleZone(v.bankid, v.coords, 1, {
+                name = v.bankid,
                 useZ = true
             }, {
                 options = {
