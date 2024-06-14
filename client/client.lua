@@ -55,17 +55,19 @@ end)
 -- open bank with opening hours
 ---------------------------------
 local OpenBank = function(bankid)
-    local hour = GetClockHours()
-    if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
-        lib.notify({
-            title = Lang:t('client.lang_2'),
-            description = Lang:t('client.lang_3')..Config.OpenTime..Lang:t('client.lang_4'),
-            type = 'error',
-            icon = 'fa-solid fa-building-columns',
-            iconAnimation = 'shake',
-            duration = 7000
-        })
-        return
+    if not Config.AlwaysOpen then
+        local hour = GetClockHours()
+        if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
+            lib.notify({
+                title = Lang:t('client.lang_2'),
+                description = Lang:t('client.lang_3')..Config.OpenTime..Lang:t('client.lang_4'),
+                type = 'error',
+                icon = 'fa-solid fa-building-columns',
+                iconAnimation = 'shake',
+                duration = 7000
+            })
+            return
+        end
     end
     RSGCore.Functions.TriggerCallback('rsg-banking:getBankingInformation', function(banking)
         if banking ~= nil then
@@ -83,16 +85,21 @@ end
 ---------------------------------
 local GetBankHours = function()
     local hour = GetClockHours()
-    if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
-        for k, v in pairs(SpawnedBankBilps) do
-            BlipAddModifier(v, joaat('BLIP_MODIFIER_MP_COLOR_2'))
+    if not Config.AlwaysOpen then
+        if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
+            for k, v in pairs(SpawnedBankBilps) do
+                BlipAddModifier(v, joaat('BLIP_MODIFIER_MP_COLOR_2'))
+            end
+        else
+            for k, v in pairs(SpawnedBankBilps) do
+                BlipAddModifier(v, joaat('BLIP_MODIFIER_MP_COLOR_8'))
+            end
         end
     else
         for k, v in pairs(SpawnedBankBilps) do
             BlipAddModifier(v, joaat('BLIP_MODIFIER_MP_COLOR_8'))
         end
-    end           
-    Wait(60000) -- every min
+    end
 end
 
 ---------------------------------
