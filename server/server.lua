@@ -2,35 +2,6 @@ local RSGCore = exports['rsg-core']:GetCoreObject()
 local banking = nil
 
 ---------------------------------
--- version checker
----------------------------------
-local function versionCheckPrint(_type, log)
-    local color = _type == 'success' and '^2' or '^1'
-
-    print(('^5['..GetCurrentResourceName()..']%s %s^7'):format(color, log))
-end
-
-local function CheckVersion()
-    PerformHttpRequest('https://raw.githubusercontent.com/Rexshack-RedM/rsg-banking/main/version.txt', function(err, text, headers)
-        local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
-
-        if not text then 
-            versionCheckPrint('error', 'Currently unable to run a version check.')
-            return 
-        end
-
-        --versionCheckPrint('success', ('Current Version: %s'):format(currentVersion))
-        --versionCheckPrint('success', ('Latest Version: %s'):format(text))
-        
-        if text == currentVersion then
-            versionCheckPrint('success', 'You are running the latest version.')
-        else
-            versionCheckPrint('error', ('You are currently running an outdated version, please update to version %s'):format(text))
-        end
-    end)
-end
-
----------------------------------
 -- callback for bank balance
 ---------------------------------
 RSGCore.Functions.CreateCallback('rsg-banking:getBankingInformation', function(source, cb, bankid)
@@ -219,8 +190,3 @@ RSGCore.Commands.Add('bloodmoneyclip', Lang:t('server.lang_14'), {{ name = 'amou
         end
     end
 end, 'user')
-
----------------------------------
--- start version check
----------------------------------
-CheckVersion()
