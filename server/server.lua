@@ -190,3 +190,19 @@ RSGCore.Commands.Add('bloodmoneyclip', Lang:t('server.lang_14'), {{ name = 'amou
         end
     end
 end, 'user')
+
+---------------------------------
+-- open safe deposit box
+---------------------------------
+RegisterNetEvent('rsg-banking:server:opensafedeposit', function(town)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    if not Player then return end
+    local data = {
+        maxweight = Config.StorageMaxWeight,
+        slots = Config.StorageMaxSlots
+    }
+    local citizenId = Player.PlayerData.citizenid
+    local stashName = 'safedeposit_' .. citizenId .. town
+    exports['rsg-inventory']:OpenInventory(src, stashName, data)
+end)

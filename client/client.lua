@@ -162,29 +162,24 @@ end)
 -- bank safe deposit box
 ---------------------------------
 RegisterNetEvent('rsg-banking:client:safedeposit', function()
-    RSGCore.Functions.GetPlayerData(function(PlayerData)
-        local cid = PlayerData.citizenid
-        local ZoneTypeId = 1
-        local x,y,z =  table.unpack(GetEntityCoords(cache.ped))
-        local town = GetMapZoneAtCoords(x,y,z, ZoneTypeId)
+    local ZoneTypeId = 1
+    local x,y,z =  table.unpack(GetEntityCoords(cache.ped))
+    local town = GetMapZoneAtCoords(x,y,z, ZoneTypeId)
 
-        if town == -744494798 then
-            town = 'Armadillo'
-        end
-        if town == 1053078005 then
-            town = 'Blackwater'
-        end
-        if town == 2046780049 then
-            town = 'Rhodes'
-        end
-        if town == -765540529 then
-            town = 'SaintDenis'
-        end
-        if town == 459833523 then
-            town = 'Valentine'
-        end
-
-        TriggerServerEvent("inventory:server:OpenInventory", "stash", cid..town, { maxweight = Config.StorageMaxWeight, slots = Config.StorageMaxSlots } )
-        TriggerEvent("inventory:client:SetCurrentStash", cid..town)
-    end)
+    if town == -744494798 then
+        town = 'Armadillo'
+    end
+    if town == 1053078005 then
+        town = 'Blackwater'
+    end
+    if town == 2046780049 then
+        town = 'Rhodes'
+    end
+    if town == -765540529 then
+        town = 'SaintDenis'
+    end
+    if town == 459833523 then
+        town = 'Valentine'
+    end
+    TriggerServerEvent('rsg-banking:server:opensafedeposit', town)
 end)
