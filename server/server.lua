@@ -198,10 +198,7 @@ RegisterNetEvent('rsg-banking:server:opensafedeposit', function(town)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
     if not Player then return end
-    local data = {
-        maxweight = Config.StorageMaxWeight,
-        slots = Config.StorageMaxSlots
-    }
+    local data = { label = 'Safe Deposit Box', maxweight = Config.StorageMaxWeight, slots = Config.StorageMaxSlots }
     local citizenId = Player.PlayerData.citizenid
     local stashName = 'safedeposit_' .. citizenId .. town
     exports['rsg-inventory']:OpenInventory(src, stashName, data)
