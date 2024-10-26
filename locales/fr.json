@@ -1,0 +1,26 @@
+{
+    "cl_lang_1" : "Ouvrir la banque",
+    "cl_lang_2" : "Banque fermée",
+    "cl_lang_3" : "revenez après ",
+    "cl_lang_4" : "h",
+
+    "sv_lang" : "Coffre-fort",
+    "sv_lang_1" : "Montant invalide",
+    "sv_lang_2" : "Fonds insuffisants",
+    "sv_lang_9" : "Pince à billets convertie",
+    "sv_lang_10" : "Vous venez de convertir $",
+    "sv_lang_11" : " en une pince à billets !",
+    
+    "sv_lang_3" : "Pince à billets utilisée",
+    "sv_lang_4" : "Vous avez obtenu $",
+    "sv_lang_5" : " en espèces de cette pince à billets !",
+    "sv_lang_6" : "Créer une pince à billets",
+    "sv_lang_7" : "Combien d'argent souhaitez-vous convertir ?",
+    "sv_lang_8" : "veuillez entrer le montant correct !",
+    "sv_lang_12" : "Pince à billets en argent sale utilisée",
+    "sv_lang_13" : " d'argent sale de cette pince à billets !",
+    "sv_lang_14" : "Créer une pince à billets en argent sale",
+    "sv_lang_15" : "Combien d'argent sale souhaitez-vous convertir ?",
+    "sv_lang_16" : "Pince à billets en argent sale convertie",
+    "sv_lang_17" : " d'argent sale en une pince à billets !"
+}
