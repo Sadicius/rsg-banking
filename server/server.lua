@@ -85,12 +85,12 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
         end
     end
 
-    -- create moneyclip
+    -- create money_clip
     if type == 3 then
         if currentBank >= amount then
             local info = { money = amount }
-            Player.Functions.RemoveMoney(bankid, tonumber(amount), 'bank-moneyclip')
-            Player.Functions.AddItem('moneyclip', 1, false, info)
+            Player.Functions.RemoveMoney(bankid, tonumber(amount), 'bank-money_clip')
+            Player.Functions.AddItem('money_clip', 1, false, info)
             local newBankBalance = Player.Functions.GetMoney(bankid)
             TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, bankid)
             lib.notify({ title = locale('sv_lang_9'), description = locale('sv_lang_10') .. ' ' .. amount .. ' ' .. locale('sv_lang_11'), type = 'success' })
@@ -102,9 +102,9 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
 end)
 
 ---------------------------------
--- moneyclip made usable
+-- money clip made usable
 ---------------------------------
-RSGCore.Functions.CreateUseableItem('moneyclip', function(source, item)
+RSGCore.Functions.CreateUseableItem('money_clip', function(source, item)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
     if not Player then return end
@@ -120,7 +120,7 @@ RSGCore.Functions.CreateUseableItem('moneyclip', function(source, item)
 end)
 
 ---------------------------------
--- create moneyclip command
+-- create money clip command
 ---------------------------------
 RSGCore.Commands.Add('moneyclip', locale('sv_lang_6'), {{ name = 'amount', help = locale('sv_lang_7') }}, true, function(source, args)
     local src = source
@@ -141,16 +141,16 @@ RSGCore.Commands.Add('moneyclip', locale('sv_lang_6'), {{ name = 'amount', help 
                 money = args1
             }
 
-            Player.Functions.AddItem('moneyclip', 1, false, info)
+            Player.Functions.AddItem('money_clip', 1, false, info)
             lib.notify({ title = locale('sv_lang_9'), description = locale('sv_lang_10') .. ' ' .. args1 .. ' ' .. locale('sv_lang_11'), type = 'success' })
         end
     end
 end, 'user')
 
 ---------------------------------
--- blood moneyclip made usable
+-- blood money_clip made usable
 ---------------------------------
-RSGCore.Functions.CreateUseableItem('bloodmoneyclip', function(source, item)
+RSGCore.Functions.CreateUseableItem('blood_money_clip', function(source, item)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
     if not Player then return end
@@ -166,7 +166,7 @@ RSGCore.Functions.CreateUseableItem('bloodmoneyclip', function(source, item)
 end)
 
 ---------------------------------
--- create blood moneyclip command
+-- create blood money clip command
 ---------------------------------
 RSGCore.Commands.Add('bloodmoneyclip', locale('sv_lang_14'), {{ name = 'amount', help = locale('sv_lang_15') }}, true, function(source, args)
     local src = source
@@ -188,7 +188,7 @@ RSGCore.Commands.Add('bloodmoneyclip', locale('sv_lang_14'), {{ name = 'amount',
                 money = args1
             }
 
-            Player.Functions.AddItem('bloodmoneyclip', 1, false, info)
+            Player.Functions.AddItem('blood_money_clip', 1, false, info)
             lib.notify({ title = locale('sv_lang_16'), description = locale('sv_lang_10') ..' ' .. args1 ..' ' .. locale('sv_lang_17'), type = 'success' })
         end
     end
