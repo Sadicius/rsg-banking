@@ -1,6 +1,7 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
 local BankOpen = false
 local SpawnedBankBilps = {}
+lib.locale()
 
 ---------------------------------
 -- prompts and blips if needed
@@ -8,30 +9,14 @@ local SpawnedBankBilps = {}
 CreateThread(function()
     for _,v in pairs(Config.BankLocations) do
         if Config.UseTarget then
-            exports['rsg-target']:AddCircleZone(v.bankid, v.coords, 1, {
-                name = v.bankid,
-                useZ = true
-            }, {
-                options = {
-                    {
-                        type = "client",
-                        icon = "fas fa-bank",
-                        label = "Open bank",
-                        action = function()
-                            TriggerEvent('rsg-banking:client:OpenBanking', v.bankid)
-                        end
-                    },
-                },
-                distance = 1.5
-            })
         else
-            exports['rsg-core']:createPrompt(v.bankid, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], Lang:t('client.lang_1')..v.name, {
+            exports['rsg-core']:createPrompt(v.bankid, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], locale('cl_lang_1'), {
                 type = 'client',
                 event = 'rsg-banking:client:OpenBanking',
-                args = {v.bankid},
+                args = { v.bankid },
             })
         end
-        if v.showblip == true then    
+        if v.showblip == true then
             local BankBlip = BlipAddForCoords(1664425300, v.coords)
             SetBlipSprite(BankBlip, joaat(v.blipsprite), true)
             SetBlipScale(BankBlip, v.blipscale)
@@ -58,14 +43,7 @@ local OpenBank = function(bankid)
     if not Config.AlwaysOpen then
         local hour = GetClockHours()
         if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
-            lib.notify({
-                title = Lang:t('client.lang_2'),
-                description = Lang:t('client.lang_3')..Config.OpenTime..Lang:t('client.lang_4'),
-                type = 'error',
-                icon = 'fa-solid fa-building-columns',
-                iconAnimation = 'shake',
-                duration = 7000
-            })
+            lib.notify({ title = locale('cl_lang_2'), description = locale('cl_lang_3') .. ' ' .. Config.OpenTime .. ' ' .. locale('cl_lang_4'), type = 'error', icon = 'fa-solid fa-building-columns', iconAnimation = 'shake', duration = 7000 })
             return
         end
     end
@@ -116,7 +94,7 @@ CreateThread(function()
     while true do
         GetBankHours()
         Wait(60000) -- every min
-    end       
+    end
 end)
 
 ---------------------------------
@@ -181,5 +159,6 @@ RegisterNetEvent('rsg-banking:client:safedeposit', function()
     if town == 459833523 then
         town = 'Valentine'
     end
+
     TriggerServerEvent('rsg-banking:server:opensafedeposit', town)
 end)

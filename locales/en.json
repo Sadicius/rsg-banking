@@ -1,0 +1,26 @@
+{
+    "cl_lang_1" : "Open Bank",
+    "cl_lang_2" : "Bank Closed",
+    "cl_lang_3" : "come back after ",
+    "cl_lang_4" : "am",
+
+    "sv_lang" : "Safe Deposit Box",
+    "sv_lang_1" : "Invalid Amount",
+    "sv_lang_2" : "Insufficient Funds",
+    "sv_lang_9" : "Money Clip Converted",
+    "sv_lang_10" : "You've just converted $",
+    "sv_lang_11" : " cash into a Money Clip!",
+    
+    "sv_lang_3" : "Money Clip Used",
+    "sv_lang_4" : "You've got $",
+    "sv_lang_5" : " cash from this Money Clip!",
+    "sv_lang_6" : "Make Money Clip",
+    "sv_lang_7" : "How much money do you want convert?",
+    "sv_lang_8" : "please enter the correct amount!",
+    "sv_lang_12" : "Blood Money Clip Used",
+    "sv_lang_13" : " bloodmoney from this Blood Money Clip!",
+    "sv_lang_14" : "Make Blood Money Clip",
+    "sv_lang_15" : "How much blood money do you want convert?",
+    "sv_lang_16" : "Blood Money Clip Converted",
+    "sv_lang_17" : " bloodmoney into a Money Clip!"
+}
