@@ -1,0 +1,26 @@
+{
+    "cl_lang_1" : "Deschide Banca",
+    "cl_lang_2" : "Banca Inchisa",
+    "cl_lang_3" : "reveni dupa ",
+    "cl_lang_4" : "AM",
+
+    "sv_lang" : "Seif pentru Depozite",
+    "sv_lang_1" : "Suma Invalida",
+    "sv_lang_2" : "Fonduri Insuficiente",
+    "sv_lang_9" : "Clip pentru Bani Convertit",
+    "sv_lang_10" : "A convertit $",
+    "sv_lang_11" : " in Clip pentru Bani!",
+    
+    "sv_lang_3" : "Clip pentru Bani Folosit",
+    "sv_lang_4" : "A obtinut $",
+    "sv_lang_5" : " din acest Clip pentru Bani!",
+    "sv_lang_6" : "Creaza Clip pentru Bani",
+    "sv_lang_7" : "Cata suma vrea sa converteasca?",
+    "sv_lang_8" : "te rog introdu suma corecta!",
+    "sv_lang_12" : "Clip pentru Bani Sangvineti Folosit",
+    "sv_lang_13" : " bani sangvineti din acest Clip pentru Bani Sangvineti!",
+    "sv_lang_14" : "Creaza Clip pentru Bani Sangvineti",
+    "sv_lang_15" : "Cata suma de bani sangvineti vrea sa converteasca?",
+    "sv_lang_16" : "Clip pentru Bani Sangvineti Convertit",
+    "sv_lang_17" : " bani sangvineti in Clip pentru Bani!"
+}
