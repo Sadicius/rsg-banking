@@ -39,8 +39,7 @@ function NearPed(npcmodel, npccoords, bankid)
     SetEntityInvincible(spawnedPed, true)
     FreezeEntityPosition(spawnedPed, true)
     SetBlockingOfNonTemporaryEvents(spawnedPed, true)
-    SetPedRelationshipGroupHash(spawnedPed, GetPedRelationshipGroupHash(spawnedPed))
-    SetRelationshipBetweenGroups(1, GetPedRelationshipGroupHash(spawnedPed), `PLAYER`)
+    SetPedCanBeTargetted(spawnedPed, false)
     if Config.FadeIn then
         for i = 0, 255, 51 do
             Wait(50)
