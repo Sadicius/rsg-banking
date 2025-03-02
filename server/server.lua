@@ -193,3 +193,31 @@ RSGCore.Commands.Add('bloodmoneyclip', locale('sv_lang_14'), {{ name = 'amount',
         end
     end
 end, 'user')
+
+---------------------------------
+-- target give money transfer
+---------------------------------
+RegisterNetEvent('rsg-banking:server:givemoney', function(targetPlayerId, amount)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    local targetPlayer = RSGCore.Functions.GetPlayer(tonumber(targetPlayerId))
+    
+    if not Player then
+        TriggerClientEvent('lib.notify', src, { title = locale('sv_lang_18'), description = locale('sv_lang_19'), type = 'error' })
+        return
+    end
+
+    if not targetPlayer then
+        TriggerClientEvent('lib.notify', src, { title = locale('sv_lang_18'), description = locale('sv_lang_20'), type = 'error' })
+        return
+    end
+
+    if Player.Functions.GetMoney('cash') >= amount then
+        Player.Functions.RemoveMoney('cash', amount)
+        targetPlayer.Functions.AddMoney('cash', amount)
+        TriggerClientEvent('lib.notify', Player.PlayerData.source, { title = locale('sv_lang_21'), description = locale('sv_lang_22') .. amount .. locale('sv_lang_23') .. targetPlayer.PlayerData.charinfo.firstname, type = 'success' })
+        TriggerClientEvent('lib.notify', targetPlayer.PlayerData.source, { title = locale('sv_lang_21'), description = locale('sv_lang_24') .. amount .. locale('sv_lang_25') .. Player.PlayerData.charinfo.firstname, type = 'success' })
+    else
+        TriggerClientEvent('lib.notify', Player.PlayerData.source, { title = locale('sv_lang_18'), description = locale('sv_lang_26'), type = 'error' })
+    end
+end)

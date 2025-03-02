@@ -162,3 +162,52 @@ RegisterNetEvent('rsg-banking:client:safedeposit', function()
 
     TriggerServerEvent('rsg-banking:server:opensafedeposit', town)
 end)
+
+---------------------------------
+-- target to give player cash
+---------------------------------
+exports['ox_target']:addGlobalPlayer({
+    {
+        name = 'give_money',
+        label = locale('cl_lang_5'),
+        icon = 'fas fa-money-bill-wave',
+        onSelect = function(data)
+            local targetEntity = data.entity
+            local targetPlayerIndex = NetworkGetPlayerIndexFromPed(targetEntity)
+            local targetServerId = GetPlayerServerId(targetPlayerIndex)
+            if IsEntityAPed(targetEntity) and IsPedAPlayer(targetEntity) then
+                local targetPlayerIndex = NetworkGetPlayerIndexFromPed(targetEntity)
+                local targetServerId = GetPlayerServerId(targetPlayerIndex)
+            
+                if targetServerId and targetServerId > 0 then
+                    OpenGiveMoneyMenu(targetServerId)
+                else
+                    lib.notify({ title = locale('cl_lang_6'), type = 'error' })
+                end
+            else
+                lib.notify({ title = locale('cl_lang_7'), type = 'error' })
+            end
+        end,
+    },
+}, 1.0)
+
+---------------------------------
+-- target give money input form
+---------------------------------
+function OpenGiveMoneyMenu(targetPlayerId)
+    local input = lib.inputDialog(locale('cl_lang_8')..targetPlayerId, {
+        {
+            type = 'number',
+            label = locale('cl_lang_9'),
+        },
+    })
+    if input then
+        local amount = tonumber(input[1])
+
+        if amount and amount > 0 then
+            TriggerServerEvent('rsg-banking:server:givemoney', targetPlayerId, amount)
+        else
+            lib.notify({ title = locale('cl_lang_10'), type = 'error' })
+        end
+    end
+end
