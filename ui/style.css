@@ -66,6 +66,10 @@ html {
     color:limegreen;
 }
 
+.charge{
+    color:orange;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;

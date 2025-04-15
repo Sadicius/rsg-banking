@@ -46,19 +46,21 @@ function NearPed(npcmodel, npccoords, bankid)
             SetEntityAlpha(spawnedPed, i, false)
         end
     end
-    -- target start
-    exports.ox_target:addLocalEntity(spawnedPed, {
-        {
-            name = 'banking_npc',
-            icon = 'far fa-eye',
-            label = locale('cl_lang_1'),
-            onSelect = function()
-                TriggerEvent('rsg-banking:client:OpenBanking', bankid)
-            end,
-            distance = 5.0
-        }
-    })
-    -- target end
+
+    if Config.UseTarget then
+        exports.ox_target:addLocalEntity(spawnedPed, {
+            {
+                name = 'banking_npc',
+                icon = 'far fa-eye',
+                label = locale('cl_lang_1'),
+                onSelect = function()
+                    TriggerEvent('rsg-banking:client:OpenBanking', bankid)
+                end,
+                distance = 5.0
+            }
+        })
+    end
+
     return spawnedPed
 end
 
