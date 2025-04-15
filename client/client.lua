@@ -8,8 +8,7 @@ lib.locale()
 ---------------------------------
 CreateThread(function()
     for _,v in pairs(Config.BankLocations) do
-        if Config.UseTarget then
-        else
+        if not Config.UseTarget then
             exports['rsg-core']:createPrompt(v.bankid, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], locale('cl_lang_1'), {
                 type = 'client',
                 event = 'rsg-banking:client:OpenBanking',
@@ -49,7 +48,7 @@ local OpenBank = function(bankid)
     end
     RSGCore.Functions.TriggerCallback('rsg-banking:getBankingInformation', function(banking)
         if banking ~= nil then
-            SendNUIMessage({action = "OPEN_BANK", balance = banking, id = bankid})
+            SendNUIMessage({action = "OPEN_BANK", balance = banking, id = bankid, withdrawChargeRate = Config.WithdrawChargeRate or 0})
             SetNuiFocus(true, true)
             BankOpen = true
             SetTimecycleModifier('RespawnLight')

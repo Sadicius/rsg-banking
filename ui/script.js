@@ -2,13 +2,15 @@ var ShowingToast = false;
 var ShopData = null;
 var TransactionType = 1;
 var id = 'bank';
+var withdrawChargeRate = 0;
 
 window.addEventListener("message", (event) => {
     id = event.data.id;
     const action = event.data.action;
     switch (action) {
         case "OPEN_BANK":
-            $(".balance").html(event.data.balance.toLocaleString('en-US', { 
+            withdrawChargeRate = event.data.withdrawChargeRate
+            $(".balance").html(event.data.balance.toFixed(2).toLocaleString('en-US', { 
                 style: 'currency', 
                 currency: 'USD' 
             }));
@@ -18,7 +20,7 @@ window.addEventListener("message", (event) => {
             $("#bankmenu").fadeOut(200);
             break;
         case "UPDATE_BALANCE":
-            $(".balance").html(event.data.balance.toLocaleString('en-US', {
+            $(".balance").html(event.data.balance.toFixed(2).toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD'
             }));
@@ -50,6 +52,9 @@ $(".withdraw").click(function() {
         $("#transactionmenu").fadeIn(200);
         $("#transhead").html("Withdraw");
         $(".transact").html("Withdraw");
+        if(withdrawChargeRate > 0) {
+            $(".charge").html('Withdraw charge rate: ' + withdrawChargeRate + '%');
+        }
     });
 });
 
@@ -60,6 +65,7 @@ $(".deposit").click(function() {
         $("#transactionmenu").fadeIn(200);
         $("#transhead").html("Deposit");
         $(".transact").html("Deposit");
+        $(".charge").html('');
     });
 });
 

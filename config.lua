@@ -21,6 +21,8 @@ Config.CloseTime  = 17 -- hrs : 24hour clock
 Config.AlwaysOpen = true -- sets bank always open if set to true
 Config.UseTarget  = false
 
+Config.WithdrawChargeRate = 0 -- Charge of withdrawing money. Example: if set to 10, when withdrawing 100$, additional 10$ is charged
+
 ---------------------------------
 -- bank locations
 ---------------------------------

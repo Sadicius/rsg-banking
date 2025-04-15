@@ -1,6 +1,7 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
 local banking = nil
 lib.locale()
+math = lib.math
 
 ---------------
 -- stash
@@ -55,7 +56,7 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
     local currentCash = Player.Functions.GetMoney('cash')
     local currentBank = Player.Functions.GetMoney(bankid)
 
-    amount = tonumber(amount)
+    amount = math.round(amount, 2)
     if amount <= 0 then
         lib.notify(src, {title = locale('sv_lang_1'), type = 'error'})
         return
@@ -63,9 +64,15 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
 
     -- bank-withdraw
     if type == 1 then
-        if currentBank >= amount then
-            Player.Functions.RemoveMoney(bankid, tonumber(amount), 'bank-withdraw')
-            Player.Functions.AddMoney('cash', tonumber(amount), 'bank-withdraw')
+        local bankRemove = amount
+        if Config.WithdrawChargeRate and Config.WithdrawChargeRate > 0 then 
+            local charge = amount * (Config.WithdrawChargeRate / 100)
+            bankRemove = math.round(amount + charge, 2)
+        end
+
+        if currentBank >= bankRemove then
+            Player.Functions.RemoveMoney(bankid, bankRemove, 'bank-withdraw')
+            Player.Functions.AddMoney('cash', amount, 'bank-withdraw')
             local newBankBalance = Player.Functions.GetMoney(bankid)
             TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, bankid)
         else
