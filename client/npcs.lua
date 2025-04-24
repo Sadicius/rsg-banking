@@ -9,7 +9,7 @@ CreateThread(function()
             local distance = #(playerCoords - v.npccoords.xyz)
 
             if distance < Config.DistanceSpawn and not spawnedPeds[k] then
-                local spawnedPed = NearPed(v.npcmodel, v.npccoords, v.bankid)
+                local spawnedPed = NearPed(v.npcmodel, v.npccoords, v.moneytype)
                 spawnedPeds[k] = { spawnedPed = spawnedPed }
             end
             
@@ -27,7 +27,7 @@ CreateThread(function()
     end
 end)
 
-function NearPed(npcmodel, npccoords, bankid)
+function NearPed(npcmodel, npccoords, moneytype)
     RequestModel(npcmodel)
     while not HasModelLoaded(npcmodel) do
         Wait(50)
@@ -54,7 +54,7 @@ function NearPed(npcmodel, npccoords, bankid)
                 icon = 'far fa-eye',
                 label = locale('cl_lang_1'),
                 onSelect = function()
-                    TriggerEvent('rsg-banking:client:OpenBanking', bankid)
+                    TriggerEvent('rsg-banking:client:OpenBanking', moneytype)
                 end,
                 distance = 5.0
             }

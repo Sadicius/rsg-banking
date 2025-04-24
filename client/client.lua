@@ -12,7 +12,7 @@ CreateThread(function()
             exports['rsg-core']:createPrompt(v.bankid, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], locale('cl_lang_1'), {
                 type = 'client',
                 event = 'rsg-banking:client:OpenBanking',
-                args = { v.bankid },
+                args = { v.moneytype },
             })
         end
         if v.showblip == true then
@@ -38,7 +38,7 @@ end)
 ---------------------------------
 -- open bank with opening hours
 ---------------------------------
-local OpenBank = function(bankid)
+local OpenBank = function(moneytype)
     if not Config.AlwaysOpen then
         local hour = GetClockHours()
         if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
@@ -48,13 +48,13 @@ local OpenBank = function(bankid)
     end
     RSGCore.Functions.TriggerCallback('rsg-banking:getBankingInformation', function(banking)
         if banking ~= nil then
-            SendNUIMessage({action = "OPEN_BANK", balance = banking, id = bankid, withdrawChargeRate = Config.WithdrawChargeRate or 0})
+            SendNUIMessage({action = "OPEN_BANK", balance = banking, id = moneytype, withdrawChargeRate = Config.WithdrawChargeRate or 0})
             SetNuiFocus(true, true)
             BankOpen = true
             SetTimecycleModifier('RespawnLight')
             for i=0, 10 do SetTimecycleModifierStrength(0.1 + (i / 10)); Wait(10) end
         end
-    end, bankid)
+    end, moneytype)
 end
 
 ---------------------------------
@@ -119,8 +119,8 @@ RegisterNUICallback('SafeDeposit', function()
     TriggerEvent('rsg-banking:client:safedeposit')
 end)
 
-AddEventHandler('rsg-banking:client:OpenBanking', function(bankid)
-    OpenBank(bankid)
+AddEventHandler('rsg-banking:client:OpenBanking', function(moneytype)
+    OpenBank(moneytype)
 end)
 
 RegisterNUICallback('Transact', function(data)
@@ -130,9 +130,9 @@ end)
 ---------------------------------
 -- update bank balance
 ---------------------------------
-RegisterNetEvent('rsg-banking:client:UpdateBanking', function(newbalance, bankid)
+RegisterNetEvent('rsg-banking:client:UpdateBanking', function(newbalance, moneytype)
     if not BankOpen then return end
-    SendNUIMessage({action = "UPDATE_BALANCE", balance = newbalance, id = bankid})
+    SendNUIMessage({action = "UPDATE_BALANCE", balance = newbalance, id = moneytype})
 end)
 
 ---------------------------------
