@@ -30,6 +30,7 @@ Config.BankLocations = {
     {
         name = 'Valentine Bank',
         bankid = 'valbank',
+        moneytype = 'bank',
         coords = vector3(-308.4189, 775.8842, 118.7017),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(-308.14, 773.98, 118.7, 4.75),
@@ -40,6 +41,7 @@ Config.BankLocations = {
     {
         name = 'Rhodes Bank',
         bankid = 'rhobank',
+        moneytype = 'bank',
         coords = vector3(1292.307, -1301.539, 77.04012),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(1291.22, -1303.28, 77.04, 316.53),
@@ -50,6 +52,7 @@ Config.BankLocations = {
     {
         name = 'Saint Denis Bank',
         bankid = 'bank',
+        moneytype = 'bank',
         coords = vector3(2644.579, -1292.313, 52.24956),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(2644.75, -1294.15, 52.25, 17.11),
@@ -60,6 +63,7 @@ Config.BankLocations = {
     {
         name = 'Blackwater Bank',
         bankid = 'blkbank',
+        moneytype = 'bank',
         coords = vector3(-813.1633, -1277.486, 43.63771),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(-813.2, -1275.38, 43.64, 173.1),
@@ -70,6 +74,7 @@ Config.BankLocations = {
     {
         name = 'Armadillo Bank',
         bankid = 'armbank',
+        moneytype = 'bank',
         coords = vector3(-3666.25, -2626.57, -13.59),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(-3666.28, -2628.69, -13.59, 359.78),

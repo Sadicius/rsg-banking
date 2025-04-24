@@ -19,28 +19,28 @@ end)
 ---------------------------------
 -- callback for bank balance
 ---------------------------------
-RSGCore.Functions.CreateCallback('rsg-banking:getBankingInformation', function(source, cb, bankid)
+RSGCore.Functions.CreateCallback('rsg-banking:getBankingInformation', function(source, cb, moneytype)
 
     local Player = RSGCore.Functions.GetPlayer(source)
     if not Player then return cb(nil) end
 
-    if bankid == 'bank' then
+    if moneytype == 'bank' then
         banking = tonumber(Player.PlayerData.money['bank'])
     end
 
-    if bankid == 'valbank' then
+    if moneytype == 'valbank' then
         banking = tonumber(Player.PlayerData.money['valbank'])
     end
 
-    if bankid == 'rhobank' then
+    if moneytype == 'rhobank' then
         banking = tonumber(Player.PlayerData.money['rhobank'])
     end
 
-    if bankid == 'blkbank' then
+    if moneytype == 'blkbank' then
         banking = tonumber(Player.PlayerData.money['blkbank'])
     end
 
-    if bankid == 'armbank' then
+    if moneytype == 'armbank' then
         banking = tonumber(Player.PlayerData.money['armbank'])
     end
 
@@ -50,11 +50,11 @@ end)
 ---------------------------------
 -- deposit & withdraw
 ---------------------------------
-RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
+RegisterNetEvent('rsg-banking:server:transact', function(type, amount, moneytype)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(source)
     local currentCash = Player.Functions.GetMoney('cash')
-    local currentBank = Player.Functions.GetMoney(bankid)
+    local currentBank = Player.Functions.GetMoney(moneytype)
 
     amount = math.round(amount, 2)
     if amount <= 0 then
@@ -71,10 +71,10 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
         end
 
         if currentBank >= bankRemove then
-            Player.Functions.RemoveMoney(bankid, bankRemove, 'bank-withdraw')
+            Player.Functions.RemoveMoney(moneytype, bankRemove, 'bank-withdraw')
             Player.Functions.AddMoney('cash', amount, 'bank-withdraw')
-            local newBankBalance = Player.Functions.GetMoney(bankid)
-            TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, bankid)
+            local newBankBalance = Player.Functions.GetMoney(moneytype)
+            TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, moneytype)
         else
             lib.notify(src, {title = locale('sv_lang_2'), type = 'error'})
         end
@@ -84,9 +84,9 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
     if type == 2 then
         if currentCash >= amount then
             Player.Functions.RemoveMoney('cash', tonumber(amount), 'bank-deposit')
-            Player.Functions.AddMoney(bankid, tonumber(amount), 'bank-deposit')
-            local newBankBalance = Player.Functions.GetMoney(bankid)
-            TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, bankid)
+            Player.Functions.AddMoney(moneytype, tonumber(amount), 'bank-deposit')
+            local newBankBalance = Player.Functions.GetMoney(moneytype)
+            TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, moneytype)
         else
             lib.notify(src, {title = locale('sv_lang_2'), type = 'error'})
         end
@@ -96,10 +96,10 @@ RegisterNetEvent('rsg-banking:server:transact', function(type, amount, bankid)
     if type == 3 then
         if currentBank >= amount then
             local info = { money = amount }
-            Player.Functions.RemoveMoney(bankid, tonumber(amount), 'bank-money_clip')
+            Player.Functions.RemoveMoney(moneytype, tonumber(amount), 'bank-money_clip')
             Player.Functions.AddItem('money_clip', 1, false, info)
-            local newBankBalance = Player.Functions.GetMoney(bankid)
-            TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, bankid)
+            local newBankBalance = Player.Functions.GetMoney(moneytype)
+            TriggerClientEvent('rsg-banking:client:UpdateBanking', src, newBankBalance, moneytype)
             lib.notify({ title = locale('sv_lang_9'), description = locale('sv_lang_10') .. ' ' .. amount .. ' ' .. locale('sv_lang_11'), type = 'success' })
         else
             lib.notify(src, {title = locale('sv_lang_2'), type = 'error'})
