@@ -16,10 +16,9 @@ Config.StorageMaxSlots = 5
 -- settings
 ---------------------------------
 Config.Keybind    = 'J'
-Config.OpenTime   = 9 -- hrs : 24hour clock
-Config.CloseTime  = 17 -- hrs : 24hour clock
-Config.AlwaysOpen = true -- sets bank always open if set to true
-Config.UseTarget  = false
+-- Config.OpenTime   = 9 -- hrs : 24hour clock
+-- Config.CloseTime  = 17 -- hrs : 24hour clock
+-- Config.AlwaysOpen = true -- sets bank always open if set to true
 
 Config.WithdrawChargeRate = 0 -- Charge of withdrawing money. Example: if set to 10, when withdrawing 100$, additional 10$ is charged
 
@@ -28,8 +27,8 @@ Config.WithdrawChargeRate = 0 -- Charge of withdrawing money. Example: if set to
 ---------------------------------
 Config.BankLocations = {
     {
-        name = 'Valentine Bank', -- map blip text
-        bankid = 'valbank', -- internal identifier, do not change
+        name = 'Bank',
+        bankid = 'valbank',
         moneytype = 'valbank', -- type of money that bank handles (RSGCore.Config.Money.MoneyTypes)
         coords = vector3(-308.4189, 775.8842, 118.7017),
         npcmodel = 'S_M_M_BankClerk_01',
@@ -39,7 +38,7 @@ Config.BankLocations = {
         blipscale = 0.2
     },
     {
-        name = 'Rhodes Bank',
+        name = 'Bank',
         bankid = 'rhobank',
         moneytype = 'rhobank',
         coords = vector3(1292.307, -1301.539, 77.04012),
@@ -50,38 +49,49 @@ Config.BankLocations = {
         blipscale = 0.2
     },
     {
-        name = 'Saint Denis Bank',
+        name = 'Bank',
         bankid = 'bank',
         moneytype = 'bank',
         coords = vector3(2644.579, -1292.313, 52.24956),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(2644.75, -1294.15, 52.25, 17.11),
         showblip = true,
-        blipsprite = 'blip_proc_bank', 
+        blipsprite = 'blip_proc_bank',
         blipscale = 0.2
     },
     {
-        name = 'Blackwater Bank',
+        name = 'Bank',
         bankid = 'blkbank',
         moneytype = 'blkbank',
         coords = vector3(-813.1633, -1277.486, 43.63771),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(-813.2, -1275.38, 43.64, 173.1),
         showblip = true,
-        blipsprite = 'blip_proc_bank', 
+        blipsprite = 'blip_proc_bank',
         blipscale = 0.2
     },
     {
-        name = 'Armadillo Bank',
+        name = 'Bank',
         bankid = 'armbank',
         moneytype = 'armbank',
         coords = vector3(-3666.25, -2626.57, -13.59),
         npcmodel = 'S_M_M_BankClerk_01',
         npccoords = vector4(-3666.28, -2628.69, -13.59, 359.78),
         showblip = true,
-        blipsprite = 'blip_proc_bank', 
+        blipsprite = 'blip_proc_bank',
         blipscale = 0.2
     },
+    -- {
+    --     name = 'Bank',
+    --     bankid = 'annbank',
+    --     moneytype = 'annbank',
+    --     coords = vector3(-3666.25, -2626.57, -13.59),
+    --     npcmodel = 'S_M_M_BankClerk_01',
+    --     npccoords = vector4(-3666.28, -2628.69, -13.59, 359.78),
+    --     showblip = true,
+    --     blipsprite = 'blip_proc_bank',
+    --     blipscale = 0.2
+    -- },
 }
 
 ---------------------------------
@@ -112,8 +122,8 @@ Config.BankDoors = {
     { door = 2089945615, state = 0 }, -- main door
     { door = 2817024187, state = 0 }, -- main door
     { door = 1830999060, state = 1 }, -- inner private door
-    { door = 965922748,  state = 1 }, -- manager door
-    { door = 1634115439, state = 1 }, -- manager door
+    { door = 965922748,  state = 0 }, -- manager door
+    { door = 1634115439, state = 0 }, -- manager door
     { door = 1751238140, state = 1 }, -- vault
 
     -- blackwater
@@ -121,11 +131,13 @@ Config.BankDoors = {
     { door = 2117902999, state = 1 }, -- inner door
     { door = 2817192481, state = 1 }, -- manager door
     { door = 1462330364, state = 1 }, -- vault door
-    
+
     -- armadillo
     { door = 3101287960, state = 0 }, -- main door
     { door = 3550475905, state = 1 }, -- inner door
     { door = 1329318347, state = 1 }, -- inner door
     { door = 1366165179, state = 1 }, -- back door
 
+    -- annesburg
+    -- { door = 3101287960, state = 0 }, -- main door
 }

@@ -44,6 +44,10 @@ RSGCore.Functions.CreateCallback('rsg-banking:getBankingInformation', function(s
         banking = tonumber(Player.PlayerData.money['armbank'])
     end
 
+    -- if moneytype == 'annbank' then
+    --     banking = tonumber(Player.PlayerData.money['annbank'])
+    -- end
+
     cb(banking)
 end)
 

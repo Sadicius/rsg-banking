@@ -1,29 +1,6 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
 local BankOpen = false
-local SpawnedBankBilps = {}
 lib.locale()
-
----------------------------------
--- prompts and blips if needed
----------------------------------
-CreateThread(function()
-    for _,v in pairs(Config.BankLocations) do
-        if not Config.UseTarget then
-            exports['rsg-core']:createPrompt(v.bankid, v.coords, RSGCore.Shared.Keybinds[Config.Keybind], locale('cl_lang_1'), {
-                type = 'client',
-                event = 'rsg-banking:client:OpenBanking',
-                args = { v.moneytype },
-            })
-        end
-        if v.showblip == true then
-            local BankBlip = BlipAddForCoords(1664425300, v.coords)
-            SetBlipSprite(BankBlip, joaat(v.blipsprite), true)
-            SetBlipScale(BankBlip, v.blipscale)
-            SetBlipName(BankBlip, v.name)
-            table.insert(SpawnedBankBilps, BankBlip)
-        end
-    end
-end)
 
 ---------------------------------
 -- set bank door default state
@@ -39,13 +16,13 @@ end)
 -- open bank with opening hours
 ---------------------------------
 local OpenBank = function(moneytype)
-    if not Config.AlwaysOpen then
+    --[[ if not Config.AlwaysOpen then
         local hour = GetClockHours()
         if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
             lib.notify({ title = locale('cl_lang_2'), description = locale('cl_lang_3') .. ' ' .. Config.OpenTime .. ' ' .. locale('cl_lang_4'), type = 'error', icon = 'fa-solid fa-building-columns', iconAnimation = 'shake', duration = 7000 })
             return
         end
-    end
+    end ]]
     RSGCore.Functions.TriggerCallback('rsg-banking:getBankingInformation', function(banking)
         if banking ~= nil then
             SendNUIMessage({action = "OPEN_BANK", balance = banking, id = moneytype, withdrawChargeRate = Config.WithdrawChargeRate or 0})
@@ -60,7 +37,7 @@ end
 ---------------------------------
 -- get bank hours function
 ---------------------------------
-local GetBankHours = function()
+--[[ local GetBankHours = function()
     local hour = GetClockHours()
     if not Config.AlwaysOpen then
         if (hour < Config.OpenTime) or (hour >= Config.CloseTime) then
@@ -77,24 +54,24 @@ local GetBankHours = function()
             BlipAddModifier(v, joaat('BLIP_MODIFIER_MP_COLOR_8'))
         end
     end
-end
+end ]]
 
 ---------------------------------
 -- get bank hours on player loading
 ---------------------------------
-RegisterNetEvent('RSGCore:Client:OnPlayerLoaded', function()
+--[[ RegisterNetEvent('RSGCore:Client:OnPlayerLoaded', function()
     GetBankHours()
-end)
+end) ]]
 
 ---------------------------------
 -- update bank hours every min
 ---------------------------------
-CreateThread(function()
+--[[ CreateThread(function()
     while true do
         GetBankHours()
         Wait(60000) -- every min
     end
-end)
+end) ]]
 
 ---------------------------------
 -- close bank
@@ -158,6 +135,9 @@ RegisterNetEvent('rsg-banking:client:safedeposit', function()
     if town == 459833523 then
         town = 'Valentine'
     end
+    -- if town == 459833523 then
+    --     town = 'Annesburg'
+    -- end
 
     TriggerServerEvent('rsg-banking:server:opensafedeposit', town)
 end)
@@ -177,7 +157,7 @@ exports['ox_target']:addGlobalPlayer({
             if IsEntityAPed(targetEntity) and IsPedAPlayer(targetEntity) then
                 local targetPlayerIndex = NetworkGetPlayerIndexFromPed(targetEntity)
                 local targetServerId = GetPlayerServerId(targetPlayerIndex)
-            
+
                 if targetServerId and targetServerId > 0 then
                     OpenGiveMoneyMenu(targetServerId)
                 else
